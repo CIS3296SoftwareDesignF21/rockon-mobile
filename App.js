@@ -10,6 +10,7 @@ import {
     TouchableOpacity,
 } from "react-native";
 
+
 const Http = new XMLHttpRequest();
 const Http_GET = new XMLHttpRequest();
 
@@ -95,6 +96,7 @@ export default function App() {
         </View>
     );
 }
+
 
 const styles = StyleSheet.create({
     container: {
