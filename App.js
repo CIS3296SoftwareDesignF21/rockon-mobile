@@ -1,102 +1,150 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
-import React from 'react';
-import type {Node} from 'react';
+import { StatusBar } from "expo-status-bar";
+import React, { useState } from "react";
 import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+    StyleSheet,
+    Text,
+    View,
+    Image,
+    TextInput,
+    Button,
+    TouchableOpacity,
+} from "react-native";
 
-import { NavigationContainer } from '@react-navigation/native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+const Http = new XMLHttpRequest();
+const Http_GET = new XMLHttpRequest();
 
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
+const emulator_url = 'http://10.0.2.2:8080/api/users'
+Http.open("POST", emulator_url);
 
-const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
+Http.setRequestHeader("Accept", "/!*!/");
+Http.setRequestHeader("Content-Type", "application/json");
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+var user_data = `{
+    "id":1,
+    "firstName":"Bryan",
+    "lastName":"Oberholtzer",
+    "phoneNumber":"1111111111",
+    "email":"b@g.c",
+    "birthday":"2021-01-01",
+    "lastSeenLocation":{},
+    "searchRadius":1,
+    "biography":"He's a guy",
+    "yearsOfExperience":1,
+    "typeSportClimbing":false,
+    "typeTradClimbing":false,
+    "typeTopRope":false,
+    "typeFreeSolo":false,
+    "typeBouldering":true
+    }`;
+let response = "";
 
-  return (
-    <NavigationContainer>
-      <SafeAreaView style={backgroundStyle}>
-        <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={backgroundStyle}>
-          <View
-            style={{
-              backgroundColor: isDarkMode ? Colors.black : Colors.white,
-            }}>
-            <Section title="Hello World">RockOn for CIS3296</Section>
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    </NavigationContainer>
-  );
-};
+Http.onreadystatechange = (e) => {
+    console.log(Http.responseText)
+    response = Http.responseText
+}
+Http.send();
+
+Http_GET.open("GET", emulator_url);
+
+let response_GET = "";
+
+Http_GET.onreadystatechange = (e) => {
+    console.log(Http_GET.responseText)
+    response_GET = Http_GET.responseText
+}
+Http_GET.send();
+
+
+export default function App() {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    return (
+        <View style={styles.container}>
+            <Text style={styles.title}>ROCK ON!</Text>
+
+            <Image style={styles.image} source={require("./assets/rock_climb_logo.png")} />
+
+            <StatusBar style="auto" />
+            <View style={styles.inputView}>
+                <TextInput
+                    style={styles.TextInput}
+                    placeholder="Email"
+                    placeholderTextColor="#003f5c"
+                    onChangeText={(email) => setEmail(email)}
+                />
+            </View>
+
+            <View style={styles.inputView}>
+                <TextInput
+                    style={styles.TextInput}
+                    placeholder="Password"
+                    placeholderTextColor="#003f5c"
+                    secureTextEntry={true}
+                    onChangeText={(password) => setPassword(password)}
+                />
+            </View>
+
+            <TouchableOpacity>
+                <Text style={styles.new_user_button}>New User? Make an account</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.loginBtn}>
+                <Text>LOGIN</Text>
+            </TouchableOpacity>
+        </View>
+    );
+}
+
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
+    container: {
+        flex: 1,
+        backgroundColor: "#fff",
+        alignItems: "center",
+        justifyContent: "center",
+    },
 
-export default App;
+    image: {
+        marginBottom: 40,
+    },
+
+    inputView: {
+        backgroundColor: "#fa9f07",
+        borderRadius: 30,
+        width: "70%",
+        height: 45,
+        marginBottom: 20,
+
+        alignItems: "center",
+    },
+
+    TextInput: {
+        height: 50,
+        flex: 1,
+        padding: 10,
+        marginLeft: 20,
+    },
+
+    new_user_button: {
+        height: 30,
+        marginBottom: 30,
+    },
+
+    loginBtn: {
+        width: "80%",
+        borderRadius: 25,
+        height: 50,
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: 40,
+        backgroundColor: "#fb7804",
+    },
+
+    title: {
+        fontWeight: "bold",
+        fontSize: 30,
+    },
+
+});
