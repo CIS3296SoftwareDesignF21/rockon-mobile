@@ -2,16 +2,17 @@ import React from 'react';
 import {Text, Image, ImageBackground, View, StyleSheet} from 'react-native';
 
 
-const Card = () => {
-    return(
+const Card = (props) => {
+  const {name, image, bio} = props.user;  
+  return(
         <View style = {styles.card}>
             <ImageBackground
-            source={require('/Users/carlosgonzalez/Documents/GitHub/rockon-mobile/assets/pexels-pixabay-461593.jpg')}
+            source={image}
             style = {styles.image}>
             <View style={styles.cardInner}>
-                <Text style ={styles.name}> Random name</Text>
+                <Text style ={styles.name}> {name}</Text>
                 <Text style = {styles.bio}>
-                    Random bio
+                    {bio}
                     </Text>
             </View>
             </ImageBackground>
@@ -49,7 +50,7 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
     },
     bio: {
-      fontsize: 18,
+      fontSize: 18,
       color: 'white',
       lineHeight: 25,
     },
