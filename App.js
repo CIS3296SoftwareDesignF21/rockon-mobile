@@ -1,6 +1,14 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import React, { useState } from "react";
+import {
+    StyleSheet,
+    Text,
+    View,
+    Image,
+    TextInput,
+    Button,
+    TouchableOpacity,
+} from "react-native";
 
 const Http = new XMLHttpRequest();
 const Http_GET = new XMLHttpRequest();
@@ -8,7 +16,7 @@ const Http_GET = new XMLHttpRequest();
 const emulator_url = 'http://10.0.2.2:8080/api/users'
 Http.open("POST", emulator_url);
 
-Http.setRequestHeader("Accept", "/*/");
+Http.setRequestHeader("Accept", "/!*!/");
 Http.setRequestHeader("Content-Type", "application/json");
 
 var user_data = `{
@@ -48,39 +56,93 @@ Http_GET.send();
 
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-        <Text style={styles.instructions}>
-            {response}
-            {'\n'}
-            {response_GET}
-        </Text>
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
-      <TouchableOpacity
-          onPress={() => alert('Hello, world!')}
-          style={{ backgroundColor: 'blue' }}>
-        <Text style={{ fontSize: 20, color: '#fff' }}>Pick a photo</Text>
-      </TouchableOpacity>
-      <StatusBar style="auto" />
-    </View>
-  );
+    return (
+        <View style={styles.container}>
+            <Text style={styles.title}>ROCK ON!</Text>
+
+            <Image style={styles.image} source={require("./assets/rock_climb_logo.png")} />
+
+            <StatusBar style="auto" />
+            <View style={styles.inputView}>
+                <TextInput
+                    style={styles.TextInput}
+                    placeholder="Email"
+                    placeholderTextColor="#003f5c"
+                    onChangeText={(email) => setEmail(email)}
+                />
+            </View>
+
+            <View style={styles.inputView}>
+                <TextInput
+                    style={styles.TextInput}
+                    placeholder="Password"
+                    placeholderTextColor="#003f5c"
+                    secureTextEntry={true}
+                    onChangeText={(password) => setPassword(password)}
+                />
+            </View>
+
+            <TouchableOpacity>
+                <Text style={styles.new_user_button}>New User? Make an account</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.loginBtn}>
+                <Text>LOGIN</Text>
+            </TouchableOpacity>
+        </View>
+    );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  logo: {
-    width: 305,
-    height: 159,
-    marginBottom: 10,
-  },
-  instructions: {
-    color: '#888',
-    fontSize: 18,
-    marginHorizontal: 15,
-  },
+    container: {
+        flex: 1,
+        backgroundColor: "#fff",
+        alignItems: "center",
+        justifyContent: "center",
+    },
+
+    image: {
+        marginBottom: 40,
+    },
+
+    inputView: {
+        backgroundColor: "#fa9f07",
+        borderRadius: 30,
+        width: "70%",
+        height: 45,
+        marginBottom: 20,
+
+        alignItems: "center",
+    },
+
+    TextInput: {
+        height: 50,
+        flex: 1,
+        padding: 10,
+        marginLeft: 20,
+    },
+
+    new_user_button: {
+        height: 30,
+        marginBottom: 30,
+    },
+
+    loginBtn: {
+        width: "80%",
+        borderRadius: 25,
+        height: 50,
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: 40,
+        backgroundColor: "#fb7804",
+    },
+
+    title: {
+        fontWeight: "bold",
+        fontSize: 30,
+    },
+
 });
