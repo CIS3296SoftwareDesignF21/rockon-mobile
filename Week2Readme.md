@@ -7,3 +7,7 @@ This week I learned how to use react native a bit more and was able to do create
 ### Yaki Lebovits
 
 This week I created the overall project structure for the backend application. I also created the database table and related model to store user data.
+
+### Ryan Hardison
+
+This week we all agreed that a conversion to Expo Cli would greatly ease the testing process for running the mobile app. So I worked on the conversion from React Cli to Expo Cli and were able to successfully get Expo working. I also started but did not yet get to finish working on some front-end login page UI changes to get a proper login page created for the app.
