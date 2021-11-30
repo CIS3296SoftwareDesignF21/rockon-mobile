@@ -9,7 +9,8 @@ import {
     Button,
     TouchableOpacity,
 } from "react-native";
-
+import Dropdown from 'react-dropdown';
+import 'react-dropdown/style.css';
 
 const Http = new XMLHttpRequest();
 const Http_GET = new XMLHttpRequest();
@@ -54,9 +55,18 @@ Http_GET.onreadystatechange = (e) => {
     response_GET = Http_GET.responseText
 }
 Http_GET.send();
+const options = [
+    'one', 'two', 'three'
+];
 
 
-export default function App() {
+/*export default function App() {
+    return (
+        <View onLoad={login} style={styles.container}/>
+    );
+}
+
+export function login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -87,8 +97,83 @@ export default function App() {
             </View>
 
             <TouchableOpacity>
-                <Text style={styles.new_user_button}>New User? Make an account</Text>
+
+                <Text style={styles.new_user_button} onClick={newUser}>New User? Make an account</Text>
+
             </TouchableOpacity>
+
+            <TouchableOpacity style={styles.loginBtn}>
+                <Text>LOGIN</Text>
+            </TouchableOpacity>
+        </View>
+    );
+}*/
+
+export default function newUser() {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    return (
+        <View style={styles.container}>
+            <Text style={styles.title}>Make a new account</Text>
+
+{/*
+            <Image style={styles.image} source={require("./assets/rock_climb_logo.png")} />
+*/}
+
+            <StatusBar style="auto" />
+            <View style={styles.inputView}>
+                <TextInput
+                    style={styles.TextInput}
+                    placeholder="First Name"
+                    placeholderTextColor="#003f5c"
+                    onChangeText={(email) => setEmail(email)}
+                />
+            </View>
+            <View style={styles.inputView}>
+                <TextInput
+                    style={styles.TextInput}
+                    placeholder="Last Name"
+                    placeholderTextColor="#003f5c"
+                    onChangeText={(email) => setEmail(email)}
+                />
+            </View>
+
+            <View style={styles.inputView}>
+                <TextInput
+                    style={styles.TextInput}
+                    placeholder="Email"
+                    placeholderTextColor="#003f5c"
+                    onChangeText={(email) => setEmail(email)}
+                />
+            </View>
+
+            <View style={styles.inputView}>
+                <TextInput
+                    style={styles.TextInput}
+                    placeholder="Password"
+                    placeholderTextColor="#003f5c"
+                    secureTextEntry={true}
+                    onChangeText={(password) => setPassword(password)}
+                />
+            </View>
+            {/*<View style={styles.inputView}>
+                <TextInput
+                    style={styles.TextInput}
+                    placeholder="Confirm Password"
+                    placeholderTextColor="#003f5c"
+                    secureTextEntry={true}
+                    onChangeText={(password) => setPassword(password)}
+                />
+            </View>*/}
+
+
+            <Dropdown options={options} onChange={this.onSelect} value={'test'} placeholder="Select an option" />;
+
+
+
+
+
 
             <TouchableOpacity style={styles.loginBtn}>
                 <Text>LOGIN</Text>
@@ -101,9 +186,10 @@ export default function App() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        marginTop:30,
         backgroundColor: "#fff",
         alignItems: "center",
-        justifyContent: "center",
+        justifyContent: "flex-start",
     },
 
     image: {
@@ -145,6 +231,8 @@ const styles = StyleSheet.create({
     title: {
         fontWeight: "bold",
         fontSize: 30,
+        marginBottom: 10,
     },
+    
 
 });
