@@ -9,8 +9,6 @@ import {
     Button,
     TouchableOpacity,
 } from "react-native";
-import Dropdown from 'react-dropdown';
-import 'react-dropdown/style.css';
 
 const Http = new XMLHttpRequest();
 const Http_GET = new XMLHttpRequest();
@@ -55,9 +53,9 @@ Http_GET.onreadystatechange = (e) => {
     response_GET = Http_GET.responseText
 }
 Http_GET.send();
-const options = [
-    'one', 'two', 'three'
-];
+
+const OPTIONS = ["One", "Two", "Three"];
+
 
 
 /*export default function App() {
@@ -112,14 +110,21 @@ export function login() {
 export default function newUser() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [firstname, setFirstname] = useState("");
+    const [lastname, setLastname] = useState("");
+    const [phonenumber, setPhonenumber] = useState("");
+    const [birthday, setBirthday] = useState("");
+    const [experience, setExperience] = useState("");
+    const [searchRadius, setSearchRadius] = useState("");
+    const [bio, setBio] = useState("");
+    let newUserAccount = {firstName: firstname, lastName: lastname, email: email, password: password, phoneNumber: phonenumber,
+        birthday: birthday, yearsOfExperience: experience, biography: bio, lastSeenLocation: [0, 0], searchRadius: searchRadius,
+    typeBouldering: null, typeFreeSolo: null, typeSportClimbing: null, typeTopRope: null, typeTradClimbing: null};
 
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Make a new account</Text>
 
-{/*
-            <Image style={styles.image} source={require("./assets/rock_climb_logo.png")} />
-*/}
 
             <StatusBar style="auto" />
             <View style={styles.inputView}>
@@ -127,7 +132,7 @@ export default function newUser() {
                     style={styles.TextInput}
                     placeholder="First Name"
                     placeholderTextColor="#003f5c"
-                    onChangeText={(email) => setEmail(email)}
+                    onChangeText={(firstname) => setFirstname(firstname)}
                 />
             </View>
             <View style={styles.inputView}>
@@ -135,7 +140,7 @@ export default function newUser() {
                     style={styles.TextInput}
                     placeholder="Last Name"
                     placeholderTextColor="#003f5c"
-                    onChangeText={(email) => setEmail(email)}
+                    onChangeText={(lastname) => setLastname(lastname)}
                 />
             </View>
 
@@ -157,36 +162,66 @@ export default function newUser() {
                     onChangeText={(password) => setPassword(password)}
                 />
             </View>
-            {/*<View style={styles.inputView}>
+
+            <View style={styles.inputView}>
                 <TextInput
                     style={styles.TextInput}
-                    placeholder="Confirm Password"
+                    placeholder="Phone Number"
                     placeholderTextColor="#003f5c"
-                    secureTextEntry={true}
-                    onChangeText={(password) => setPassword(password)}
+                    onChangeText={(phonenumber) => setPhonenumber(phonenumber)}
                 />
-            </View>*/}
+            </View>
 
+            <View style={styles.inputView}>
+                <TextInput
+                    style={styles.TextInput}
+                    placeholder="Birthday: MM/DD/YYYY"
+                    placeholderTextColor="#003f5c"
+                    onChangeText={(birthday) => setBirthday(birthday)}
+                />
+            </View>
 
-            <Dropdown options={options} onChange={this.onSelect} value={'test'} placeholder="Select an option" />;
+            <View style={styles.inputView}>
+                <TextInput
+                    style={styles.TextInput}
+                    placeholder="Years of climbing experience"
+                    placeholderTextColor="#003f5c"
+                    onChangeText={(experience) => setExperience(experience)}
+                />
+            </View>
 
+            <View style={styles.inputView}>
+                <TextInput
+                    style={styles.TextInput}
+                    placeholder="Search Radius"
+                    placeholderTextColor="#003f5c"
+                    onChangeText={(searchRadius) => setSearchRadius(searchRadius)}
+                />
+            </View>
 
-
-
-
+            <View style={styles.inputView}>
+                <TextInput
+                    style={styles.TextInput}
+                    placeholder="Bio"
+                    placeholderTextColor="#003f5c"
+                    onChangeText={(bio) => setBio(bio)}
+                />
+            </View>
 
             <TouchableOpacity style={styles.loginBtn}>
-                <Text>LOGIN</Text>
+                <Text onPress={() => console.log(newUserAccount)}>Create Account</Text>
             </TouchableOpacity>
         </View>
     );
+
+
 }
 
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginTop:30,
+        marginTop:60,
         backgroundColor: "#fff",
         alignItems: "center",
         justifyContent: "flex-start",
@@ -231,7 +266,7 @@ const styles = StyleSheet.create({
     title: {
         fontWeight: "bold",
         fontSize: 30,
-        marginBottom: 10,
+        marginBottom: 50,
     },
 
 
