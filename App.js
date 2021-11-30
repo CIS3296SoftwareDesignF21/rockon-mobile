@@ -1,15 +1,21 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, {Component} from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+
+const emulator_url = 'http://10.0.2.2:8080/api/users';
+const localhost_url = 'https://127.0.0.1:8080/api/users';
+const localhostipv6_url = 'http://[::1]:8080/api/users';
 
 const Http = new XMLHttpRequest();
 const Http_GET = new XMLHttpRequest();
 
-const emulator_url = 'http://10.0.2.2:8080/api/users'
-Http.open("POST", emulator_url);
+/*
+Http.open("GET", emulator_url);
 
-Http.setRequestHeader("Accept", "/*/");
+Http.setRequestHeader("Accept", "");
 Http.setRequestHeader("Content-Type", "application/json");
+
+let response = "Default Text";
 
 var user_data = `{
     "id":1,
@@ -28,14 +34,15 @@ var user_data = `{
     "typeFreeSolo":false,
     "typeBouldering":true
     }`;
-let response = "";
 
 Http.onreadystatechange = (e) => {
     console.log(Http.responseText)
     response = Http.responseText
 }
 Http.send();
+ */
 
+/*
 Http_GET.open("GET", emulator_url);
 
 let response_GET = "";
@@ -45,25 +52,67 @@ Http_GET.onreadystatechange = (e) => {
     response_GET = Http_GET.responseText
 }
 Http_GET.send();
+ */
 
+export default class App extends Component {
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-        <Text style={styles.instructions}>
-            {response}
-            {'\n'}
-            {response_GET}
-        </Text>
+    constructor() {
+        super();
+        this.state = {
+            myText: 'Default text'
+        }
+    }
 
-      <TouchableOpacity
-          onPress={() => alert('Hello, world!')}
-          style={{ backgroundColor: 'blue' }}>
-        <Text style={{ fontSize: 20, color: '#fff' }}>Pick a photo</Text>
-      </TouchableOpacity>
-      <StatusBar style="auto" />
-    </View>
-  );
+    updateMyText(newString) {
+        this.setState({myText: newString})
+    }
+
+    queryOnButtonPress() {
+        let httpQuery = new XMLHttpRequest();
+
+        //EMULATOR USE
+        httpQuery.open("GET", emulator_url);
+        //LOCALHOST USE
+        //httpQuery.open("GET", localhost_url);
+        //LOCALHOST IPV6 USE
+        //httpQuery.open("GET", localhostipv6_url);
+
+        //httpQuery.setRequestHeader("Accept", "/*/");
+        //httpQuery.setRequestHeader("Content-Type", "application/json");
+        let response = "";
+
+        //console.log(response);
+
+        httpQuery.onreadystatechange = (e) => {
+            console.log(httpQuery.responseText)
+            response = httpQuery.responseText
+
+            console.log("==================\n\nSERVER RESPONSE:\n");
+            console.log(response);
+            console.log("\n==================\n\n");
+
+            this.updateMyText(response);
+        }
+        httpQuery.send();
+    }
+
+    render() {
+        return (
+            <View style={styles.container}>
+                <Text style={styles.instructions}>
+                    {this.state.myText}
+                    {'\n'}
+                </Text>
+
+                <TouchableOpacity
+                    onPress={() => this.queryOnButtonPress()}
+                    style={{backgroundColor: 'blue'}}>
+                    <Text style={{fontSize: 20, color: '#fff'}}>Query API for All Users</Text>
+                </TouchableOpacity>
+                <StatusBar style="auto"/>
+            </View>
+        );
+    }
 }
 
 const styles = StyleSheet.create({
