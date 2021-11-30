@@ -56,4 +56,5 @@ const styles = StyleSheet.create({
     lineHeight: 25,
   },
 });
+
 export default Card;
