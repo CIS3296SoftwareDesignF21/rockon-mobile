@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React, {Component} from 'react';
+import React, {Component, useState} from 'react';
 import {
     Button,
     Image,
@@ -11,6 +11,7 @@ import {
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import TextAncestorContext from "react-native-web/dist/exports/Text/TextAncestorContext";
+import {TextInput} from "react-native-web";
 
 const emulator_url = 'http://10.0.2.2:8080/api/users';
 const localhost_url = 'https://127.0.0.1:8080/api/users';
@@ -126,20 +127,22 @@ export default class App extends Component {
  */
 
 function LoginScreen({ navigation }) {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-          <Text>Login Screen</Text>
-          <Button
-              title="Go to Second Screen"
-              onPress={() => navigation.navigate('SecondScreen')}
-          />
+      <View style={styles.container}>
+          <Text style={styles.title}>ROCK ON!</Text>
+          <Image style={styles.image} source={require("./assets/rock_climb_logo.png")} />
+          <StatusBar style="auto" />
+
       </View>
     );
 }
 
 function SecondScreen({ navigation }) {
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <View style={styles}>
             <Text>Secondary Screen</Text>
             <Button
                 title="Go to Login"
@@ -163,6 +166,58 @@ function App() {
 }
 
 export default App;
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        marginTop:30,
+        backgroundColor: "#fff",
+        alignItems: "center",
+        justifyContent: "flex-start",
+    },
+
+    image: {
+        marginBottom: 40,
+    },
+
+    inputView: {
+        backgroundColor: "#fa9f07",
+        borderRadius: 30,
+        width: "70%",
+        height: 45,
+        marginBottom: 20,
+
+        alignItems: "center",
+    },
+
+    TextInput: {
+        height: 50,
+        flex: 1,
+        padding: 10,
+        marginLeft: 20,
+    },
+
+    new_user_button: {
+        height: 30,
+        marginBottom: 30,
+    },
+
+    loginBtn: {
+        width: "80%",
+        borderRadius: 25,
+        height: 50,
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: 40,
+        backgroundColor: "#fb7804",
+    },
+
+    title: {
+        fontWeight: "bold",
+        fontSize: 30,
+        marginBottom: 10,
+    },
+});
 
 /*
 const styles = StyleSheet.create({
