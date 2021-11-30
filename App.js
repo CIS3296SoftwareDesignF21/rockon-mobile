@@ -1,6 +1,16 @@
 import { StatusBar } from 'expo-status-bar';
 import React, {Component} from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+    Button,
+    Image,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View
+} from 'react-native';
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import TextAncestorContext from "react-native-web/dist/exports/Text/TextAncestorContext";
 
 const emulator_url = 'http://10.0.2.2:8080/api/users';
 const localhost_url = 'https://127.0.0.1:8080/api/users';
@@ -54,6 +64,7 @@ Http_GET.onreadystatechange = (e) => {
 Http_GET.send();
  */
 
+/*
 export default class App extends Component {
 
     constructor() {
@@ -77,8 +88,6 @@ export default class App extends Component {
         //LOCALHOST IPV6 USE
         //httpQuery.open("GET", localhostipv6_url);
 
-        //httpQuery.setRequestHeader("Accept", "/*/");
-        //httpQuery.setRequestHeader("Content-Type", "application/json");
         let response = "";
 
         //console.log(response);
@@ -114,7 +123,48 @@ export default class App extends Component {
         );
     }
 }
+ */
 
+function LoginScreen({ navigation }) {
+    return (
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+          <Text>Login Screen</Text>
+          <Button
+              title="Go to Second Screen"
+              onPress={() => navigation.navigate('SecondScreen')}
+          />
+      </View>
+    );
+}
+
+function SecondScreen({ navigation }) {
+    return (
+        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+            <Text>Secondary Screen</Text>
+            <Button
+                title="Go to Login"
+                onPress={() => navigation.navigate('LoginScreen')}
+            />
+        </View>
+    );
+}
+
+const Stack = createNativeStackNavigator();
+
+function App() {
+    return (
+      <NavigationContainer>
+          <Stack.Navigator>
+              <Stack.Screen name="LoginScreen" component={LoginScreen} />
+              <Stack.Screen name="SecondScreen" component={SecondScreen} />
+          </Stack.Navigator>
+      </NavigationContainer>
+    );
+}
+
+export default App;
+
+/*
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -133,3 +183,4 @@ const styles = StyleSheet.create({
     marginHorizontal: 15,
   },
 });
+*/
