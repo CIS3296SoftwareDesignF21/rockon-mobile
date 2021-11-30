@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 import {
   View,
   Text,
@@ -6,9 +6,7 @@ import {
   SafeAreaView,
   Pressable,
   TextInput,
-  Alert,
 } from 'react-native';
-import {Picker} from '@react-native-picker/picker';
 
 const ProfileScreen = () => {
     return (
@@ -48,7 +46,7 @@ const styles = StyleSheet.create({
       padding: 10,
     },
     button: {
-      backgroundColor: '#F63A6E',
+      backgroundColor: '#0000FF',
       height: 25,
       justifyContent: 'center',
       alignItems: 'center',

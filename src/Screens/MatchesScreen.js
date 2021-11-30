@@ -5,8 +5,8 @@ const MatchesScreen = () => {
     return (
       <SafeAreaView style={styles.root}>
         <View style={styles.container}>
-          <Text style={{fontWeight: 'bold', fontSize: 24, color: '#F63A6E'}}>
-            New Matches
+          <Text style={{fontWeight: 'bold', fontSize: 24, color: '#0000FF'}}>
+            New Potential Partners
           </Text>
           <View style={styles.users}>
             {users.map(user => (
@@ -41,7 +41,7 @@ const MatchesScreen = () => {
   
       borderWidth: 2,
       padding: 3,
-      borderColor: '#F63A6E',
+      borderColor: '#0000FF',
     },
     image: {
       width: '100%',
